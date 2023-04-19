@@ -60,6 +60,7 @@ public class Servico {
         this.preco = preco;
     }
 
+    @DynamoDBAttribute
     public String getServicoId() {
         return servicoId;
     }
