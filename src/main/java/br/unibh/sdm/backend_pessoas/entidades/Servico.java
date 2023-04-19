@@ -11,17 +11,17 @@ public class Servico {
     private String pessoaId;
     private String descricao;
     private DecimalFormat preco;
-    private String ServicoId;
+    private String servicoId;
 
     public Servico() {
     }
 
-    public Servico(String barbeiroId, String pessoaId, String descricao, DecimalFormat preco, String ServicoId) {
+    public Servico(String barbeiroId, String pessoaId, String descricao, DecimalFormat preco, String servicoId) {
         this.barbeiroId = barbeiroId;
         this.pessoaId = pessoaId;
         this.descricao = descricao;
         this.preco = preco;
-        this.ServicoId = ServicoId;
+        this.servicoId = servicoId;
     }
 
     @DynamoDBAttribute
@@ -60,13 +60,12 @@ public class Servico {
         this.preco = preco;
     }
 
-    @DynamoDBAttribute
     public String getServicoId() {
-        return ServicoId;
+        return servicoId;
     }
 
-    public void setServicoId(String ServicoId) {
-        this.ServicoId = ServicoId;
+    public void setServicoId(String servicoId) {
+        this.servicoId = servicoId;
     }
 
     
@@ -74,7 +73,7 @@ public class Servico {
     @Override
     public String toString() {
         return "Servico [barbeiroId=" + barbeiroId + ", pessoaId=" + pessoaId + ", descricao=" + descricao + ", preco="
-                + preco + ", ServicoId=" + "]";
+                + preco + ", servicoId=" + "]";
     }
 
     @Override
@@ -85,7 +84,7 @@ public class Servico {
         result = prime * result + ((pessoaId == null) ? 0 : pessoaId.hashCode());
         result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
         result = prime * result + ((preco == null) ? 0 : preco.hashCode());
-        result = prime * result + ((ServicoId == null) ? 0 : ServicoId.hashCode());
+        result = prime * result + ((servicoId == null) ? 0 : servicoId.hashCode());
         return result;
     }
 
@@ -118,10 +117,10 @@ public class Servico {
                 return false;
         } else if (!preco.equals(other.preco))
             return false;
-        if (ServicoId == null) {
-            if (other.ServicoId != null)
+        if (servicoId == null) {
+            if (other.servicoId != null)
                 return false;
-        } else if (!ServicoId.equals(other.ServicoId))
+        } else if (!servicoId.equals(other.servicoId))
             return false;
         return true;
     }
