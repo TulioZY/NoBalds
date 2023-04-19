@@ -1,8 +1,10 @@
 package br.unibh.sdm.backend_pessoas.entidades;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 
+@DynamoDBTable(tableName = "cliente")
 public class Cliente extends Pessoa {
 
     private String NomeBarbeiroPreferido;
@@ -54,6 +56,6 @@ public class Cliente extends Pessoa {
         return true;
     }
 
-
+    
     
 }

@@ -1,3 +1,4 @@
 src/main/java/br/unibh/sdm/App.class
 target/*
 .vscode/settings.json
+.vscode/*
