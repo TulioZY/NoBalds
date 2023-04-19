@@ -11,9 +11,19 @@ public class Servico {
     private String pessoaId;
     private String descricao;
     private DecimalFormat preco;
+    private String ServicoId;
 
     public Servico() {
     }
+
+    public Servico(String barbeiroId, String pessoaId, String descricao, DecimalFormat preco, String ServicoId) {
+        this.barbeiroId = barbeiroId;
+        this.pessoaId = pessoaId;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.ServicoId = ServicoId;
+    }
+
     @DynamoDBAttribute
     public String getBarbeiroId() {
         return barbeiroId;
@@ -50,12 +60,21 @@ public class Servico {
         this.preco = preco;
     }
 
+    @DynamoDBAttribute
+    public String getServicoId() {
+        return ServicoId;
+    }
+
+    public void setServicoId(String ServicoId) {
+        this.ServicoId = ServicoId;
+    }
+
     
 
     @Override
     public String toString() {
         return "Servico [barbeiroId=" + barbeiroId + ", pessoaId=" + pessoaId + ", descricao=" + descricao + ", preco="
-                + preco + "]";
+                + preco + ", ServicoId=" + "]";
     }
 
     @Override
@@ -66,6 +85,7 @@ public class Servico {
         result = prime * result + ((pessoaId == null) ? 0 : pessoaId.hashCode());
         result = prime * result + ((descricao == null) ? 0 : descricao.hashCode());
         result = prime * result + ((preco == null) ? 0 : preco.hashCode());
+        result = prime * result + ((ServicoId == null) ? 0 : ServicoId.hashCode());
         return result;
     }
 
@@ -98,17 +118,13 @@ public class Servico {
                 return false;
         } else if (!preco.equals(other.preco))
             return false;
+        if (ServicoId == null) {
+            if (other.ServicoId != null)
+                return false;
+        } else if (!ServicoId.equals(other.ServicoId))
+            return false;
         return true;
     }
-
-    public Servico(String barbeiroId, String pessoaId, String descricao, DecimalFormat preco) {
-        this.barbeiroId = barbeiroId;
-        this.pessoaId = pessoaId;
-        this.descricao = descricao;
-        this.preco = preco;
-    }
-
-    
 
     
 }
