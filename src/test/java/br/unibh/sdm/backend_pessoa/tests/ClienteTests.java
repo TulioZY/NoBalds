@@ -3,7 +3,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.junit.FixMethodOrder;
@@ -30,7 +29,6 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 
 import br.unibh.sdm.backend_pessoas.entidades.Cliente;
-import br.unibh.sdm.backend_pessoas.entidades.Corte;
 import br.unibh.sdm.backend_pessoa.persistencia.ClienteRepository;
 
 /**
@@ -52,7 +50,6 @@ import br.unibh.sdm.backend_pessoa.persistencia.ClienteRepository;
 public class ClienteTests {
 
     private static Logger LOGGER = LoggerFactory.getLogger(ClienteTests.class);
-    private SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
 	    
     @Configuration
 	@EnableDynamoDBRepositories(basePackageClasses = { ClienteRepository.class })
@@ -86,12 +83,15 @@ public class ClienteTests {
 	@Test
 	public void teste1Criacao() throws ParseException {
 		LOGGER.info("Criando objetos...");
-        int i=100;
+        int i= 100;
+		int a = 101;
+		int b = 102;
         Long l2=Long.valueOf(i);
-		Cliente c1 = new Cliente(l2, "Marcos", "joao@gmail.com", "3899998888", "675473248", "Jrge");
-        Cliente c2 = new Cliente(l2, "Marcos", "joao@gmail.com", "3899998888", "675473248", "Jrge");
-		Cliente c3 = new Cliente(l2, "Marcos", "joao@gmail.com", "3899998888", "675473248", "Jrge");
-		
+		Long l3=Long.valueOf(a);
+		Long l4=Long.valueOf(b);
+		Cliente c1 = new Cliente(l2, "Tulipad", "joao@gmail.com", "3899998888", "675473248", "Thiago");
+        Cliente c2 = new Cliente(l3, "Sir", "joao@gmail.com", "3899998888", "12443232", "Jorge");
+		Cliente c3 = new Cliente(l4, "Braum", "joao@gmail.com", "3899998888", "98765432", "Jotaro");
 
 		repository.save(c1);
 		repository.save(c2);
@@ -104,7 +104,7 @@ public class ClienteTests {
 		}
 		LOGGER.info("Pesquisado um objeto");
 		List<Cliente> result = repository.findByCpf("CLIENTE_TESTE");
-		assertEquals(result.size(), 6);
+		assertEquals(result.size(), 3);
 		LOGGER.info("Encontrado: {}", result.size());
 	}
 	
