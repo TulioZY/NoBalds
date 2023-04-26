@@ -89,9 +89,9 @@ public class ClienteTests {
         Long l2=Long.valueOf(i);
 		Long l3=Long.valueOf(a);
 		Long l4=Long.valueOf(b);
-		Cliente c1 = new Cliente(l2, "Tulipad", "joao@gmail.com", "3899998888", "675473248", "Thiago");
-        Cliente c2 = new Cliente(l3, "Sir", "joao@gmail.com", "3899998888", "12443232", "Jorge");
-		Cliente c3 = new Cliente(l4, "Braum", "joao@gmail.com", "3899998888", "98765432", "Jotaro");
+		Cliente c1 = new Cliente(l2, "Tulipad", "tulipad@gmail.com", "3899998888", "675473248", "Thiago");
+        Cliente c2 = new Cliente(l3, "Sir", "sir@gmail.com", "3899998888", "12443232", "Jorge");
+		Cliente c3 = new Cliente(l4, "Braum", "braum@gmail.com", "3899998888", "98765432", "Jotaro");
 
 		repository.save(c1);
 		repository.save(c2);
