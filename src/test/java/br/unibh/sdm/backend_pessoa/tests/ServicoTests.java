@@ -27,8 +27,8 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 
-import br.unibh.sdm.backend_pessoas.entidades.Servico;
-import br.unibh.sdm.backend_pessoa.persistencia.ServicoRepository;
+import br.unibh.sdm.backend_nobald.entidades.Servico;
+import br.unibh.sdm.backend_nobald.persistencia.ServicoRepository;
 
 /**
  * Classe de testes para a entidade Servico.

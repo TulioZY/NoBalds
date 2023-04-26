@@ -1,7 +1,6 @@
-package br.unibh.sdm.backend_pessoas.entidades;
+package br.unibh.sdm.backend_nobald.entidades;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 
 public abstract class Pessoa {
 
@@ -9,7 +8,6 @@ public abstract class Pessoa {
      * Atributos de instância
     */
 
-    private Long id;
     private String nome;
     private String email;
     private String telefone;
@@ -22,8 +20,7 @@ public abstract class Pessoa {
     public Pessoa() {
     }
 
-    public Pessoa(Long id, String nome, String email, String telefone, String cpf) {
-        this.id = id;
+    public Pessoa(String nome, String email, String telefone, String cpf) {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
@@ -35,15 +32,6 @@ public abstract class Pessoa {
     /**
      * Métodos Gets e Sets
     */
-
-    @DynamoDBHashKey
-	public Long getId() {
-		return this.id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	@DynamoDBAttribute
 	public String getNome() {
@@ -84,14 +72,13 @@ public abstract class Pessoa {
     */
     @Override
     public String toString() {
-        return "[id=" + id + ", nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", cpf="+cpf+"]";
+        return "[nome=" + nome + ", email=" + email + ", telefone=" + telefone + ", cpf="+cpf+"]";
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((nome == null) ? 0 : nome.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
@@ -108,11 +95,6 @@ public abstract class Pessoa {
         if (getClass() != obj.getClass())
             return false;
         Pessoa other = (Pessoa) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
         if (nome == null) {
             if (other.nome != null)
                 return false;

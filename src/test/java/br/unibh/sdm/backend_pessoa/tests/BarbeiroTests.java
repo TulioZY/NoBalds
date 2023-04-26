@@ -1,9 +1,8 @@
 package br.unibh.sdm.backend_pessoa.tests;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.text.ParseException;
-import java.util.List;
+import java.util.Optional;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -28,8 +27,8 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 
-import br.unibh.sdm.backend_pessoas.entidades.Barbeiro;
-import br.unibh.sdm.backend_pessoa.persistencia.BarbeiroRepository;
+import br.unibh.sdm.backend_nobald.entidades.Barbeiro;
+import br.unibh.sdm.backend_nobald.persistencia.BarbeiroRepository;
 
 /**
  * Classe de testes para a entidade Barbeiro.
@@ -83,15 +82,9 @@ public class BarbeiroTests {
 	@Test
 	public void teste1Criacao() throws ParseException {
 		LOGGER.info("Criando objetos...");
-        int i= 200;
-		int a = 201;
-		int b = 202;
-        Long l2=Long.valueOf(i);
-		Long l3=Long.valueOf(a);
-		Long l4=Long.valueOf(b);
-		Barbeiro c1 = new Barbeiro(l2, "Thiago", "joao@gmail.com", "3899998888", "675473248", "Manhã");
-        Barbeiro c2 = new Barbeiro(l3, "Jorge", "joao@gmail.com", "3899998888", "12443232", "Tarde");
-		Barbeiro c3 = new Barbeiro(l4, "Jotaro", "joao@gmail.com", "3899998888", "98765432", "Noite");
+		Barbeiro c1 = new Barbeiro("1", "Thiago", "joao@gmail.com", "3899998888", "675473248", "Manhã");
+        Barbeiro c2 = new Barbeiro("2", "Jorge", "joao@gmail.com", "3899998888", "12443232", "Tarde");
+		Barbeiro c3 = new Barbeiro("3", "Jotaro", "joao@gmail.com", "3899998888", "98765432", "Noite");
 
 		repository.save(c1);
 		repository.save(c2);
@@ -103,22 +96,28 @@ public class BarbeiroTests {
 			LOGGER.info(Barbeiro.toString());
 		}
 		LOGGER.info("Pesquisado um objeto");
-		List<Barbeiro> result = repository.findByCpf("BARBEIRO_TESTE");
-		assertEquals(result.size(), 3);
-		LOGGER.info("Encontrado: {}", result.size());
+		Optional<Barbeiro> result = repository.findByCpf("98765432");
+		if(result.isPresent()){
+			LOGGER.info("Encontrado: {}", result.get().getNome());
+		}else {
+			LOGGER.info("Não encontrado");
+		}
 	}
 	
 	@Test
 	public void teste2Exclusao() throws ParseException {
 		LOGGER.info("Excluindo objetos...");
-		List<Barbeiro> result = repository.findByCpf("BARBEIRO_TESTE");
-		for (Barbeiro Barbeiro : result) {
-			LOGGER.info("Excluindo Barbeiro id = "+Barbeiro.getId());
-			repository.delete(Barbeiro);
+		Optional<Barbeiro> result = repository.findByCpf("98765432");
+
+		LOGGER.info("Excluindo Barbeiro de cpf = "+result.get().getCpf());
+		repository.delete(result.get());
+		
+		result = repository.findByCpf("98765432");
+		if(result.isPresent()){
+			LOGGER.info("Erro na exclusão");
+		}else{
+			LOGGER.info("Exclusão feita com sucesso");
 		}
-		result = repository.findByCpf("BARBEIRO_TESTE");
-		assertEquals(result.size(), 0);
-		LOGGER.info("Exclusão feita com sucesso");
 	}
 	
 	

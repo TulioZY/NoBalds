@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.unibh.sdm.backend_pessoas.entidades.Cliente;
+import br.unibh.sdm.backend_nobald.entidades.Cliente;
 import br.unibh.sdm.backend_nobald.negocio.ClienteService;
 
 /**

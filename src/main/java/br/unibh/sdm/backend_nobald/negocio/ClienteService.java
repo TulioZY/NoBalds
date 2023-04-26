@@ -10,8 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import br.unibh.sdm.backend_pessoas.entidades.Cliente;
-import br.unibh.sdm.backend_pessoa.persistencia.ClienteRepository;
+import br.unibh.sdm.backend_nobald.entidades.Cliente;
+import br.unibh.sdm.backend_nobald.persistencia.ClienteRepository;
 
 /**
  * Classe contendo a lógica de negócio para Cliente
@@ -40,28 +40,28 @@ public class ClienteService {
         return IteratorUtils.toList(lista.iterator());
     }    
 
-    public Cliente getClienteById(String id){
+    public Cliente getClienteByCPF(String id){
         if(logger.isInfoEnabled()){
             logger.info("Buscando Cliente com o cpf {}",id);
         }
-        Optional<Cliente> retorno = this.clienteRepo.findById(id);
+        Optional<Cliente> retorno = this.clienteRepo.findByCpf(id);
         if(!retorno.isPresent()){
-            throw new RuntimeException("Cliente com o id "+id+" nao encontrada");
+            throw new RuntimeException("Cliente com o cpf "+id+" nao encontrado");
         }
         return retorno.get();
     }
-    
-    public List<Cliente> getClienteByCpf(String cpf){
-    	if(logger.isInfoEnabled()){
-            logger.info("Buscando todos os objetos");
+
+    public Cliente getClienteById(String id){
+        if(logger.isInfoEnabled()){
+            logger.info("Buscando Cliente com o id {}",id);
         }
-        Iterable<Cliente> lista = this.clienteRepo.findByCpf(cpf);
-        if (lista == null) {
-        	return new ArrayList<Cliente>();
+        Optional<Cliente> retorno = this.clienteRepo.findByCpf(id);
+        if(!retorno.isPresent()){
+            throw new RuntimeException("Cliente com o cpf "+id+" nao encontrado");
         }
-        return IteratorUtils.toList(lista.iterator());
+        return retorno.get();
     }
-    
+
     public Cliente saveCliente(Cliente cliente){
         if(logger.isInfoEnabled()){
             logger.info("Salvando Cliente com os detalhes {}",cliente.toString());
@@ -77,7 +77,7 @@ public class ClienteService {
     }
 
     public boolean isClienteExists(Cliente cliente){
-    	Optional<Cliente> retorno = this.clienteRepo.findById(cliente.getCpf());
+    	Optional<Cliente> retorno = this.clienteRepo.findByCpf(cliente.getCpf());
         return retorno.isPresent() ? true:  false;
     }
 

@@ -1,21 +1,35 @@
-package br.unibh.sdm.backend_pessoas.entidades;
+package br.unibh.sdm.backend_nobald.entidades;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 
 @DynamoDBTable(tableName = "cliente")
 public class Cliente extends Pessoa {
-
+    
+    @DynamoDBHashKey
+    private String id;
+    
     private String NomeBarbeiroPreferido;
 
     public Cliente() {
     }
 
-    public Cliente(Long id, String nome, String email, String telefone, String cpf, String nomeBarbeiroPreferido) {
-        super(id, nome, email, telefone, cpf);
+    public Cliente(String id, String nome, String email, String telefone, String cpf, String nomeBarbeiroPreferido) {
+        super(nome, email, telefone, cpf);
+        this.id = id;
         NomeBarbeiroPreferido = nomeBarbeiroPreferido;
     }
+
+    @DynamoDBHashKey
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
     @DynamoDBAttribute
     public String getNomeBarbeiroPreferido() {
@@ -48,6 +62,11 @@ public class Cliente extends Pessoa {
         if (getClass() != obj.getClass())
             return false;
         Cliente other = (Cliente) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
         if (NomeBarbeiroPreferido == null) {
             if (other.NomeBarbeiroPreferido != null)
                 return false;

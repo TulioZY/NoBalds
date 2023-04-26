@@ -1,20 +1,32 @@
-package br.unibh.sdm.backend_pessoas.entidades;
+package br.unibh.sdm.backend_nobald.entidades;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 @DynamoDBTable(tableName = "barbeiro")
 public class Barbeiro extends Pessoa {
 
+    private String id;
     private String horario;
 
     public Barbeiro() {
     }
 
-    public Barbeiro(Long id, String nome, String email, String telefone, String cpf, String horario) {
-        super(id, nome, email, telefone, cpf);
+    public Barbeiro(String id, String nome, String email, String telefone, String cpf, String horario) {
+        super(nome, email, telefone, cpf);
+        this.id = id;
         this.horario = horario;
     }
+
+    @DynamoDBHashKey
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
     @DynamoDBAttribute
     public String getHorario() {
@@ -47,6 +59,11 @@ public class Barbeiro extends Pessoa {
         if (getClass() != obj.getClass())
             return false;
         Barbeiro other = (Barbeiro) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
         if (horario == null) {
             if (other.horario != null)
                 return false;

@@ -10,8 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import br.unibh.sdm.backend_pessoas.entidades.Servico;
-import br.unibh.sdm.backend_pessoa.persistencia.ServicoRepository;
+import br.unibh.sdm.backend_nobald.entidades.Servico;
+import br.unibh.sdm.backend_nobald.persistencia.ServicoRepository;
 
 /**
  * Classe contendo a lógica de negócio para Servico
@@ -42,7 +42,7 @@ public class ServicoService {
 
     public Servico getServicoById(String id){
         if(logger.isInfoEnabled()){
-            logger.info("Buscando Servico com o barbeiroId {}",id);
+            logger.info("Buscando Servico com o servicoId {}",id);
         }
         Optional<Servico> retorno = this.servicoRepo.findById(id);
         if(!retorno.isPresent()){
@@ -51,15 +51,15 @@ public class ServicoService {
         return retorno.get();
     }
     
-    public List<Servico> getServicoByBarbeiroId(String barbeiroId){
+    public Servico getServicoByServicoId(String Id){
     	if(logger.isInfoEnabled()){
             logger.info("Buscando todos os objetos");
         }
-        Iterable<Servico> lista = this.servicoRepo.findByBarbeiroId(barbeiroId);
-        if (lista == null) {
-        	return new ArrayList<Servico>();
+        Optional<Servico> servico = this.servicoRepo.findById(Id);
+        if (servico == null) {
+        	return new Servico();
         }
-        return IteratorUtils.toList(lista.iterator());
+        return servico.get();
     }
     
     public Servico saveServico(Servico servico){
@@ -77,7 +77,7 @@ public class ServicoService {
     }
 
     public boolean isServicoExists(Servico servico){
-    	Optional<Servico> retorno = this.servicoRepo.findById(servico.getBarbeiroId());
+    	Optional<Servico> retorno = this.servicoRepo.findById(servico.getId());
         return retorno.isPresent() ? true:  false;
     }
 

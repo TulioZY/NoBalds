@@ -1,4 +1,4 @@
-package br.unibh.sdm.backend_pessoa.persistencia;
+package br.unibh.sdm.backend_nobald.persistencia;
 
 import org.socialsignin.spring.data.dynamodb.repository.config.EnableDynamoDBRepositories;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,7 +47,7 @@ public class DynamoDBConfig {
 	@Bean
 	public AmazonDynamoDB amazonDynamoDB() {
 		return AmazonDynamoDBClientBuilder.standard().withCredentials(amazonAWSCredentialsProvider())
-				.withRegion(Regions.US_EAST_1).build();
+				.withRegion(Regions.SA_EAST_1).build();
 	}
 
 }

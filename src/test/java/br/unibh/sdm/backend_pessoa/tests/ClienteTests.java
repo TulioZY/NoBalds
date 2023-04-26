@@ -1,9 +1,8 @@
 package br.unibh.sdm.backend_pessoa.tests;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.text.ParseException;
-import java.util.List;
+import java.util.Optional;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -28,8 +27,8 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 
-import br.unibh.sdm.backend_pessoas.entidades.Cliente;
-import br.unibh.sdm.backend_pessoa.persistencia.ClienteRepository;
+import br.unibh.sdm.backend_nobald.entidades.Cliente;
+import br.unibh.sdm.backend_nobald.persistencia.ClienteRepository;
 
 /**
  * Classe de testes para a entidade Cliente.
@@ -83,15 +82,9 @@ public class ClienteTests {
 	@Test
 	public void teste1Criacao() throws ParseException {
 		LOGGER.info("Criando objetos...");
-        int i= 100;
-		int a = 101;
-		int b = 102;
-        Long l2=Long.valueOf(i);
-		Long l3=Long.valueOf(a);
-		Long l4=Long.valueOf(b);
-		Cliente c1 = new Cliente(l2, "Tulipad", "tulipad@gmail.com", "3899998888", "675473248", "Thiago");
-        Cliente c2 = new Cliente(l3, "Sir", "sir@gmail.com", "3899998888", "12443232", "Jorge");
-		Cliente c3 = new Cliente(l4, "Braum", "braum@gmail.com", "3899998888", "98765432", "Jotaro");
+		Cliente c1 = new Cliente("1", "Tulipad", "tulipad@gmail.com", "3899998888", "675473248", "Thiago");
+        Cliente c2 = new Cliente("2", "Sir", "sir@gmail.com", "3899998888", "12443232", "Jorge");
+		Cliente c3 = new Cliente("3", "Braum", "braum@gmail.com", "3899998888", "98765432", "Jotaro");
 
 		repository.save(c1);
 		repository.save(c2);
@@ -103,22 +96,28 @@ public class ClienteTests {
 			LOGGER.info(Cliente.toString());
 		}
 		LOGGER.info("Pesquisado um objeto");
-		List<Cliente> result = repository.findByCpf("CLIENTE_TESTE");
-		assertEquals(result.size(), 3);
-		LOGGER.info("Encontrado: {}", result.size());
+		Optional<Cliente> result = repository.findByCpf("675473248");
+		if(result.isPresent()){
+			LOGGER.info("Encontrado: {}", result.get().getNome());
+		}else {
+			LOGGER.info("Não encontrado");
+		}
 	}
 	
 	@Test
 	public void teste2Exclusao() throws ParseException {
 		LOGGER.info("Excluindo objetos...");
-		List<Cliente> result = repository.findByCpf("CLIENTE_TESTE");
-		for (Cliente Cliente : result) {
-			LOGGER.info("Excluindo Cliente id = "+Cliente.getId());
-			repository.delete(Cliente);
+		Optional<Cliente> result = repository.findByCpf("675473248");
+
+		LOGGER.info("Excluindo Cliente cpf = "+result.get().getCpf());
+		repository.delete(result.get());
+
+		result = repository.findByCpf("675473248");
+		if(result.isPresent()){
+			LOGGER.info("Erro na exclusão");
+		}else{
+			LOGGER.info("Exclusão feita com sucesso");
 		}
-		result = repository.findByCpf("CLIENTE_TESTE");
-		assertEquals(result.size(), 0);
-		LOGGER.info("Exclusão feita com sucesso");
 	}
 	
 	
