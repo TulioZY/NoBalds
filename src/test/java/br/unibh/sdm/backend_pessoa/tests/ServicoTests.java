@@ -115,11 +115,14 @@ public class ServicoTests {
             x = result.get().getId();
             repository.delete(result.get());
 		}
-		result = repository.findById(x);
-		if(result.isEmpty())
-            LOGGER.info("Erro na exclusão");
-        else
-		    LOGGER.info("Excluido com sucesso");
+		if(x != ""){
+			result = repository.findById(x);
+			if(result.isEmpty())
+				LOGGER.info("Erro na exclusão");
+			else
+				LOGGER.info("Excluido com sucesso");
+		}
+		
 	}
 	
 	

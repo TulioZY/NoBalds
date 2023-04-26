@@ -96,7 +96,7 @@ public class ClienteTests {
 			LOGGER.info(Cliente.toString());
 		}
 		LOGGER.info("Pesquisado um objeto");
-		Optional<Cliente> result = repository.findByCpf("675473248");
+		Optional<Cliente> result = repository.findById("1");
 		if(result.isPresent()){
 			LOGGER.info("Encontrado: {}", result.get().getNome());
 		}else {
@@ -107,12 +107,12 @@ public class ClienteTests {
 	@Test
 	public void teste2Exclusao() throws ParseException {
 		LOGGER.info("Excluindo objetos...");
-		Optional<Cliente> result = repository.findByCpf("675473248");
+		Optional<Cliente> result = repository.findById("1");
 
 		LOGGER.info("Excluindo Cliente cpf = "+result.get().getCpf());
 		repository.delete(result.get());
 
-		result = repository.findByCpf("675473248");
+		result = repository.findById("1");
 		if(result.isPresent()){
 			LOGGER.info("Erro na exclusão");
 		}else{
