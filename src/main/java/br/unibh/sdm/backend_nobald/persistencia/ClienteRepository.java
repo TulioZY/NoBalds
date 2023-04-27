@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import br.unibh.sdm.backend_nobald.entidades.Cliente;
 
 @EnableScan
-public interface ClienteRepository extends CrudRepository<Cliente, Long>{
+public interface ClienteRepository extends CrudRepository<Cliente, String>{
     
     Optional<Cliente> findByCpf(String cpf);
     Optional<Cliente> findById(String Id);

@@ -9,7 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import br.unibh.sdm.backend_nobald.entidades.Barbeiro;
 
 @EnableScan
-public interface BarbeiroRepository extends CrudRepository<Barbeiro, Long>{
+public interface BarbeiroRepository extends CrudRepository<Barbeiro, String>{
     
     Optional<Barbeiro> findByCpf(String cpf);
     Optional<Barbeiro> findById(String id);
