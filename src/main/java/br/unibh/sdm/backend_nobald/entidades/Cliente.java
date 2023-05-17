@@ -6,20 +6,26 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 
 @DynamoDBTable(tableName = "cliente")
-public class Cliente extends Pessoa {
+public class Cliente {
     
     @DynamoDBHashKey
     private String id;
-    
+    private String nome;
+    private String email;
+    private String telefone;
+    private String cpf;
     private String NomeBarbeiroPreferido;
 
     public Cliente() {
     }
 
     public Cliente(String id, String nome, String email, String telefone, String cpf, String nomeBarbeiroPreferido) {
-        super(nome, email, telefone, cpf);
         this.id = id;
-        NomeBarbeiroPreferido = nomeBarbeiroPreferido;
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+        this.cpf = cpf;
+        this.NomeBarbeiroPreferido = nomeBarbeiroPreferido;
     }
 
     @DynamoDBHashKey
@@ -38,6 +44,40 @@ public class Cliente extends Pessoa {
 
     public void setNomeBarbeiroPreferido(String nomeBarbeiroPreferido) {
         NomeBarbeiroPreferido = nomeBarbeiroPreferido;
+    }
+
+    @DynamoDBAttribute
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+    @DynamoDBAttribute
+	public String getCpf() {
+		return this.cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	@DynamoDBAttribute
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+	@DynamoDBAttribute
+    public String getTelefone() {
+        return telefone;
+    }
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     @Override
